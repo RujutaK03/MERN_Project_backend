@@ -6,7 +6,8 @@ const theatreSchema = mongoose.Schema({
         required: true,
     },
     image: {
-        filename: { type: String },
+        cloudinaryID: { type: String },
+        cloudinaryURL: { type: String },
     },
     location: {
         type: String,

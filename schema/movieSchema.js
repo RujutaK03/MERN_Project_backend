@@ -9,7 +9,8 @@ const movieSchema = mongoose.Schema({
         type: String,
     },
     moviePoster: {
-        filename: { type: String },
+        cloudinaryID: { type: String },
+        cloudinaryURL: { type: String },
     },
     releaseDate: {
         type: Date,
@@ -21,11 +22,13 @@ const movieSchema = mongoose.Schema({
     },
     castImages: [{
         name: { type: String },
-        filename: { type: String },
+        cloudinaryID: { type: String },
+        cloudinaryURL: { type: String },
     }],
     directorImages: [{
         name: { type: String },
-        filename: { type: String },
+        cloudinaryID: { type: String },
+        cloudinaryURL: { type: String },
     }],
     genre: [{
         type: String,
