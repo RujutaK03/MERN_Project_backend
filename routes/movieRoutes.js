@@ -8,42 +8,6 @@ const router = express.Router();
 
 require('dotenv').config();
 
-// const basePath = path.resolve(__dirname, '..', 'uploads');
-// const posterPath = path.join(basePath, '/posters');
-// const castPath = path.join(basePath, '/cast');
-// const directorPath = path.join(basePath, '/director');
-
-// router.use('/get-poster', express.static(posterPath))
-// router.use('/get-cast', express.static(castPath))
-// router.use('/get-director', express.static(directorPath))
-
-// const storage = multer.diskStorage({
-//     destination: (req, file, cb) => {
-//         const fieldName = file.fieldname;
-//         let folderPath;
-
-//         switch (fieldName) {
-//             case 'moviePoster':
-//                 folderPath = posterPath;
-//                 break;
-//             case 'castImages':
-//                 folderPath = castPath;
-//                 break;
-//             case 'directorImages':
-//                 folderPath = directorPath;
-//                 break;
-//             default:
-//                 folderPath = basePath;
-//                 break;
-//         }
-
-//         cb(null, folderPath);
-//     },
-//     filename: (req, file, cb) => {
-//         cb(null, Date.now() + '-' + file.originalname)
-//     }
-// });
-
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
@@ -136,5 +100,31 @@ router.get('/movies', async (req, res) => {
         res.status(500).send("Internal Server Error");
     }
 });
+
+router.get('/get-movie-info/:id', async (req, res) => {
+    try {
+        const movie = await movieSchema.findById(req.params.id);
+        if (!movie) {
+            res.status(404).send("Movie not found");
+        }
+        else {
+            res.send(movie);
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
+router.get("/upcoming-movies", async (req, res) => {
+    try {
+        const today = new Date();
+        const upcomingMovies = await movieSchema.find({ releaseDate: { $gt: today } }).sort({ releaseDate: 'asc' });
+        res.send(upcomingMovies);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal Server Error");
+    }
+})
 
 module.exports = router;

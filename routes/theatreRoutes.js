@@ -80,4 +80,25 @@ router.get('/theatres', async (req, res) => {
     }
 })
 
+router.get('/get-cities', async (req, res) => {
+    try {
+        const allCities = await theatreSchema.find().distinct('location');
+        res.send(allCities);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
+router.get("/get-theatre-by-location", async (req, res) => {
+    try {
+        const { city } = req.query;
+        const theatres = await theatreSchema.find({ location: city });
+        res.send(theatres);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
 module.exports = router;
