@@ -32,7 +32,7 @@ app.use(theatreUploadRouter)
 app.use(showUploadRouter)
 
 app.get("", (req, res) => {
-    res.send("Hi from Server!");
+    res.send("Hi from Server!!");
 });
 
 const PORT = 8080;
