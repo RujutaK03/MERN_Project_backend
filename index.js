@@ -24,7 +24,7 @@ app.use(express.json());
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use(cors());
+app.use(cors({origin: 'https://mern-project-1-eight.vercel.app'}));
 
 app.use("/userRoute", userRoute);
 app.use(movieUploadRouter)
