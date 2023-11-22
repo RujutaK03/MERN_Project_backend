@@ -7,6 +7,7 @@ const userRoute = require("./routes/userRoutes");
 const movieUploadRouter = require('./routes/movieRoutes');
 const theatreUploadRouter = require('./routes/theatreRoutes');
 const showUploadRouter = require('./routes/showsRoutes');
+const adminRouter = require('./routes/adminRoutes');
 
 const app = new express();
 
@@ -30,6 +31,7 @@ app.use("/userRoute", userRoute);
 app.use(movieUploadRouter)
 app.use(theatreUploadRouter)
 app.use(showUploadRouter)
+app.use(adminRouter)
 
 app.get("", (req, res) => {
     res.send("Hi from Server!!");
