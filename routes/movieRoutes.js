@@ -131,7 +131,7 @@ router.get("/upcoming-movies", async (req, res) => {
 router.delete('/delete-movie/:id', async (req, res) => {
     try {
         const movieId = req.params.id;
-        await showsShema.deleteMany({ movieId: movieId });
+        await showsSchema.deleteMany({ movieId: movieId });
         await movieSchema.findByIdAndDelete(movieId);
         res.status(200).send("Movie Deleted Succesfully!");
     } catch (error) {
