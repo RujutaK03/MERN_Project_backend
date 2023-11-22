@@ -4,6 +4,7 @@ const streamifier = require('streamifier');
 const cloudinary = require('cloudinary').v2;
 
 const movieSchema = require('../schema/movieSchema');
+const showsSchema = require('../schema/showsSchema');
 const router = express.Router();
 
 require('dotenv').config();
@@ -121,6 +122,18 @@ router.get("/upcoming-movies", async (req, res) => {
         const today = new Date();
         const upcomingMovies = await movieSchema.find({ releaseDate: { $gt: today } }).sort({ releaseDate: 'asc' });
         res.send(upcomingMovies);
+    } catch (error) {
+        console.log(error);
+        res.status(500).send("Internal Server Error");
+    }
+})
+
+router.delete('/delete-movie/:id', async (req, res) => {
+    try {
+        const movieId = req.params.id;
+        await showsShema.deleteMany({ movieId: movieId });
+        await movieSchema.findByIdAndDelete(movieId);
+        res.status(200).send("Movie Deleted Succesfully!");
     } catch (error) {
         console.log(error);
         res.status(500).send("Internal Server Error");
