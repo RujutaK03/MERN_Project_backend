@@ -4,7 +4,7 @@ const streamifier = require('streamifier');
 const cloudinary = require('cloudinary').v2;
 
 const movieSchema = require('../schema/movieSchema');
-const showsSchema = require('../schema/showsSchema');
+const showsSchema = require('../schema/showsShema');
 const router = express.Router();
 
 require('dotenv').config();
