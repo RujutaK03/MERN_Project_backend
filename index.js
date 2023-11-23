@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require("body-parser");
 
-
+const adminRouter = require('./routes/adminRoutes');
 const userRoute = require("./routes/userRoutes");
 const movieUploadRouter = require('./routes/movieRoutes');
 const theatreUploadRouter = require('./routes/theatreRoutes');
@@ -12,8 +12,6 @@ const seatRoute=require("./routes/seatRoutes");
 const paymentRoute=require("./routes/paymentRoutes");
 
 const app = new express();
-
-
 
 mongoose.set('strictQuery', true);
 mongoose.connect("mongodb+srv://rujutakulkarni:ZFfzKi2FTmhDV3uq@cluster0.w2r6k1d.mongodb.net/");
@@ -38,6 +36,7 @@ app.use("/paymentRoute",paymentRoute);
 app.use(movieUploadRouter)
 app.use(theatreUploadRouter)
 app.use(showUploadRouter)
+app.use(adminRouter)
 
 app.get("", (req, res) => {
     res.send("Hi from Server!!");
