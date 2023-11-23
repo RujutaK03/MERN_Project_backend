@@ -10,6 +10,9 @@ const userSchema = new mongoose.Schema({
         },
         "password": {
             type: String,
+        },
+        "points": {
+            type: Number,
         }
     },{
         collection:"users"
